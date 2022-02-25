@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform:
+  - 'AWS::Serverless-2016-10-31'
+Globals:
+  Function:
+    CodeUri: ./src
+    Runtime: nodejs14.x
+    MemorySize: 128
+    Timeout: 15
+Description: http-mock
+Parameters: {}
+Resources:
+  QueryMock:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: QueryMock.handler
+      Environment:
+        Variables:
+          TableName: !Ref MockConfig
+      Events:
+        MockRoute:
+          Type: Api
+          Properties:
+            Method: any
+            Path: '/mock/{proxy+}'
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref MockConfig
+  SetupMock:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: SetupMock.handler
+      Environment:
+        Variables:
+          TableName: !Ref MockConfig
+      Events:
+        MockRoute:
+          Type: Api
+          Properties:
+            Method: put
+            Path: '/setup/{proxy+}'
+      Policies:
+        - DynamoDBWritePolicy:
+            TableName: !Ref MockConfig
+  MockConfig:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: Path
+          AttributeType: S
+        - AttributeName: Method
+          AttributeType: S
+      KeySchema:
+        - AttributeName: Path
+          KeyType: HASH
+        - AttributeName: Method
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+      TimeToLiveSpecification:
+        AttributeName: TTL
+        Enabled: true

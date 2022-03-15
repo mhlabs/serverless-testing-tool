@@ -86,10 +86,12 @@ Consider the following pattern
 
 ```mermaid
 graph LR
-    A(API Gateway) -->|PUT| B(λ Function)
+    TEST(Test suite) --> |Invoke|A(API Gateway)
+    A -->|PUT| B(λ Function)
     B --> |Save item| C(DynamoDB)
-    C --> |DynamoDB Stream| D(λ Function)
+    C --> |DynamoDB Stream| D(λ Function)   
     D --> |Put event| E(EventBridge)
+    TEST --> |Assert event is raised| E
 ```
 
 Our test will call the API gateway and assert that an event is put on EventBridge. For this we'll create super ephemeral resources that exist for a single test case. These are an EventBridge event rule and an SQS queue. 

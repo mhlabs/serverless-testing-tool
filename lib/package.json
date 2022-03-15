@@ -1,13 +1,21 @@
 {
   "name": "@mhlabs/serverless-testing-tool",
   "version": "1.0.0",
-  "description": "",
+  "description": "Tools for integration testing testing serverless applications",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "mhlabs",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhlabs/serverless-testing-tool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mhlabs/serverless-testing-tool/issues"
+  },  
+  "homepage": "https://github.com/mhlabs/serverless-testing-tool#readme",
   "dependencies": {
     "@mhlabs/aws-sdk-sso": "^0.0.16",
     "aws-sdk": "^2.1065.0",
@@ -15,6 +23,7 @@
     "commander": "^9.0.0"
   },
   "bin": {
-    "serverless-testing-tool": "index.js"
+    "serverless-testing-tool": "index.js",
+    "stt": "index.js"
   }
 }

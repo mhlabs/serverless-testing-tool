@@ -1,6 +1,6 @@
 {
   "name": "@mhlabs/serverless-testing-tool",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Tools for integration testing testing serverless applications",
   "main": "index.js",
   "scripts": {
@@ -25,5 +25,8 @@
   "bin": {
     "serverless-testing-tool": "index.js",
     "stt": "index.js"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

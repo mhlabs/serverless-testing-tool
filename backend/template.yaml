@@ -24,7 +24,7 @@ Resources:
             Method: any
             Path: '/mock/{proxy+}'
       Policies:
-        - DynamoDBReadPolicy:
+        - DynamoDBCrudPolicy:
             TableName: !Ref MockConfig
   SetupMock:
     Type: 'AWS::Serverless::Function'
@@ -41,6 +41,22 @@ Resources:
             Path: '/setup/{proxy+}'
       Policies:
         - DynamoDBWritePolicy:
+            TableName: !Ref MockConfig
+  GetMock:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: GetMock.handler
+      Environment:
+        Variables:
+          TableName: !Ref MockConfig
+      Events:
+        MockRoute:
+          Type: Api
+          Properties:
+            Method: get
+            Path: '/{proxy+}'
+      Policies:
+        - DynamoDBReadPolicy:
             TableName: !Ref MockConfig
   MockConfig:
     Type: 'AWS::DynamoDB::Table'

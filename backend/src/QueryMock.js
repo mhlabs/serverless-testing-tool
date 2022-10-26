@@ -8,9 +8,19 @@ exports.handler = async function (event, context) {
 		Key: { Path: event.path.replace("/mock", ""), Method: event.httpMethod }
 	}).promise();
 
+	item.Item.Calls.push({
+		Body: event.body
+	});
+
+	await dynamoDb.put({
+		TableName: process.env.TableName,
+		Item: item.Item
+	}).promise();
+
 	const response = item.Item.Response;
 	const status = item.Item.Status;
 	const duration = item.Item.Duration;
+
 	await sleep(duration);
 	return {
 		statusCode: status,

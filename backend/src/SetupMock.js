@@ -9,6 +9,7 @@ exports.handler = async function (event, context) {
 		Item: {
 			...body,
 			Path: event.path.replace("/setup", ""),
+			Calls: [],
 			TTL: new Date().getTime() / 1000 + tenMinutes
 		}
 	}).promise();

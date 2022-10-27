@@ -54,7 +54,7 @@ Resources:
           Type: Api
           Properties:
             Method: get
-            Path: '/{proxy+}'
+            Path: '/get/{proxy+}'
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref MockConfig

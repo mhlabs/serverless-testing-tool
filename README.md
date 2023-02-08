@@ -1,8 +1,8 @@
 # Tools for running integration tests against ephemeral serverless stacks on AWS
 
 This repository contains two parts; 
-* One stack containing backend supporting infrastructure ([backend/README.md](README))
-* One lib containing a CLI tool for test stack setup and helper methods for test suite setup ([lib/README.md](README))
+* One stack containing backend supporting infrastructure
+* One lib containing a CLI tool for test stack setup and helper methods for test suite setup 
 
 Please refer to their readmes for more information.
 

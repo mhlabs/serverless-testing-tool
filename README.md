@@ -4,8 +4,6 @@ This repository contains two parts;
 * One stack containing backend supporting infrastructure
 * One lib containing a CLI tool for test stack setup and helper methods for test suite setup 
 
-Please refer to their readmes for more information.
-
 ## Usage
 The tool helps with setting up an ephemeral stack to run the tests against in an isolated manner. It's designed to let you test integrations _within one stack_ in the cloud.
 

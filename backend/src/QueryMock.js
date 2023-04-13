@@ -9,7 +9,8 @@ exports.handler = async function (event, context) {
 	}).promise();
 
 	item.Item.Calls.push({
-		Body: event.body
+		Body: event.body,
+		QueryParameters: event.queryStringParameters
 	});
 
 	await dynamoDb.put({

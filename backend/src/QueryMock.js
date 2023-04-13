@@ -22,11 +22,19 @@ exports.handler = async function (event, context) {
 	const status = item.Item.Status;
 	const duration = item.Item.Duration;
 	const body = item.Item.Raw ? response : JSON.stringify(response);
+	const headers = {};
+	if(item.Item.Headers) {
+		for(let i = 0; i<item.Item.Headers.length; i++){
+			const header = item.Item.Headers[i];
+			headers[header.Key] = header.Value;
+		}
+	}
 
 	await sleep(duration);
 	return {
 		statusCode: status,
 		body: body,
+		headers
 	}
 };
 

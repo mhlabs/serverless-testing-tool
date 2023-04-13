@@ -21,11 +21,12 @@ exports.handler = async function (event, context) {
 	const response = item.Item.Response;
 	const status = item.Item.Status;
 	const duration = item.Item.Duration;
+	const body = item.Item.Raw ? response : JSON.stringify(response);
 
 	await sleep(duration);
 	return {
 		statusCode: status,
-		body: JSON.stringify(response),
+		body: body,
 	}
 };
 

@@ -9,7 +9,8 @@ exports.handler = async function (event, context) {
 	}).promise();
 
 	item.Item.Calls.push({
-		Body: event.body
+		Body: event.body,
+		QueryParameters: event.queryStringParameters
 	});
 
 	await dynamoDb.put({
@@ -20,11 +21,20 @@ exports.handler = async function (event, context) {
 	const response = item.Item.Response;
 	const status = item.Item.Status;
 	const duration = item.Item.Duration;
+	const body = item.Item.Raw ? response : JSON.stringify(response);
+	const headers = {};
+	if(item.Item.Headers) {
+		for(let i = 0; i<item.Item.Headers.length; i++){
+			const header = item.Item.Headers[i];
+			headers[header.Key] = header.Value;
+		}
+	}
 
 	await sleep(duration);
 	return {
 		statusCode: status,
-		body: JSON.stringify(response),
+		body: body,
+		headers
 	}
 };
 
